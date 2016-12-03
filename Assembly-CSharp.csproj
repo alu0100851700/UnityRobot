@@ -45,15 +45,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\EmptyCSharpFile.cs" />
+     <Compile Include="Assets\Prefab\Axis\RotateAxis.cs" />
+     <Compile Include="Assets\Robot\Camera.cs" />
+     <Compile Include="Assets\Robot\Robot.cs" />
      <Compile Include="Assets\Scripts\DH\DHManager.cs" />
      <Compile Include="Assets\Scripts\DH\DHRobotManager.cs" />
      <Compile Include="Assets\Scripts\DH\ShowAxis.cs" />
-     <Compile Include="Assets\Scripts\JointsSceneManager.cs" />
-     <Compile Include="Assets\Scripts\LengthSceneManager.cs" />
-     <Compile Include="Assets\Scripts\Link.cs" />
-     <Compile Include="Assets\Scripts\LinksMenuManager.cs" />
-     <Compile Include="Assets\Scripts\Robot.cs" />
+     <Compile Include="Assets\SetUp\Scripts\Manager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>

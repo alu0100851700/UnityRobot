@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
-using UnityEditor;
 using System.Collections;
 using UnityEngine.UI;
 
 public class ShowAxis : MonoBehaviour {
-	
+	/*
 	public 	GameObject	Axis;
 			GameObject 	X ,Y, Z;
 
@@ -81,6 +80,6 @@ public class ShowAxis : MonoBehaviour {
 		FirstZRotation -= 90.0f;
 	}
 
-
+*/
 
 }

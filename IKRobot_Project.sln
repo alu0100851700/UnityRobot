@@ -1,0 +1,23 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{848F51F8-3618-5102-FFDA-49C06B16FF35}") = "IKRobot_Project", "Assembly-CSharp.csproj", "{29727E7F-3AF3-9C9D-1493-75182EB34632}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{29727E7F-3AF3-9C9D-1493-75182EB34632}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{29727E7F-3AF3-9C9D-1493-75182EB34632}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{29727E7F-3AF3-9C9D-1493-75182EB34632}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{29727E7F-3AF3-9C9D-1493-75182EB34632}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal

@@ -9,8 +9,8 @@ public class RotateAxis : MonoBehaviour {
 	void Start() {
 		XRotation = PlayerPrefs.GetFloat ("XRotation");
 		ZRotation = PlayerPrefs.GetFloat ("ZRotation");
-		this.transform.parent.Rotate (XRotation, 0f, 0f);
-		this.transform.parent.Rotate (0f, 0f, ZRotation);
+		if 		(this.name == "X") 	this.transform.parent.Rotate (XRotation, 0f, 0f);
+		else if (this.name == "Z") 	this.transform.parent.Rotate (0f, 0f, ZRotation);
 	}
 
 	void OnMouseUp() {

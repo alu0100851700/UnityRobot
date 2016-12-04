@@ -22,7 +22,6 @@ public class Manager : MonoBehaviour {
 	public GameObject	WorldPreferences;
 
 
-	//********** Prefabs **************//
 	int nWorlds = 0;
 	int actualWorld = 0;
 
@@ -33,6 +32,9 @@ public class Manager : MonoBehaviour {
 		fatherWorld.options.Add (new Dropdown.OptionData (0.ToString ()));
 		baseAxis.SetActive( true );
 		WorldPreferences.SetActive( false );
+
+		for(int i = 0; i <nWorlds; i++)
+			fatherWorld.options.Add (new Dropdown.OptionData (i.ToString ()));
 	}
 	// Update is called once per frame
 	void Update () {
@@ -40,7 +42,8 @@ public class Manager : MonoBehaviour {
 	}
 
 	public void changeScene (string scene) {
-		if(saveConfig() || actualWorld == 0)
+		saveConfig ();
+		if(actualWorld > 0)
 			Application.LoadLevel (scene);
 	}
 
@@ -58,47 +61,50 @@ public class Manager : MonoBehaviour {
 
 		if (next) {//NEXT
 			actualWorld++;
-
-			//NEW WORLD ADDED
-			if (newWorld = nWorlds < actualWorld) {
-				nWorlds++;
-				fatherWorld.options.Add (new Dropdown.OptionData (nWorlds.ToString ()));
-				d.text = "";
-				th.text = "";
-				a.text = "";
-				al.text = "";
-
-				fatherWorld.value = actualWorld - 1;
-				variableSelector.value = 0;
-			}
+			if (newWorld = nWorlds < actualWorld) addWorld ();
 		}
-		else if (actualWorld > 0){
+		else //if (!next && actualWorld > 0)
 				actualWorld--;
-		}
-			
-		if (actualWorld == 0) {
-			WorldPreferences.SetActive( false );
-			baseAxis.SetActive( true );
-			Tittle.text = "Base World";
-		} else {
-			WorldPreferences.SetActive( true );
-			baseAxis.SetActive( false );
+		
+		if (actualWorld == 0) 
+			loadBase ();
+		else if (actualWorld > 0 && !newWorld) 
+			loadConfig ();
+	}
 
-			if (!newWorld) {
-				d.text = PlayerPrefs.GetString ("world" + actualWorld.ToString () + "d");
-				th.text = PlayerPrefs.GetString ("world" + actualWorld.ToString () + "th");
-				a.text = PlayerPrefs.GetString ("world" + actualWorld.ToString () + "a");
-				al.text = PlayerPrefs.GetString ("world" + actualWorld.ToString () + "al");
-				fatherWorld.value = PlayerPrefs.GetInt ("father" + actualWorld.ToString ());
-				variableSelector.value = PlayerPrefs.GetInt ("variable" + actualWorld.ToString ());
-			}
+	void loadBase() {
+		WorldPreferences.SetActive( false );
+		baseAxis.SetActive( true );
+		Tittle.text = "Base World";
+	}
 
-			Tittle.text = "World "  + actualWorld.ToString ();
+	void addWorld() {
+		Tittle.text = "World "  + actualWorld.ToString ();
+		WorldPreferences.SetActive( true );
+		baseAxis.SetActive( false );
 
-		}
+		nWorlds++;
+		fatherWorld.options.Add (new Dropdown.OptionData (nWorlds.ToString ()));
+		d.text = "";
+		th.text = "";
+		a.text = "";
+		al.text = "";
 
+		fatherWorld.value = actualWorld - 1;
+		variableSelector.value = 0;
+	}
 
+	void loadConfig() {
+		Tittle.text = "World "  + actualWorld.ToString ();
+		WorldPreferences.SetActive( true );
+		baseAxis.SetActive( false );
 
+		d.text = PlayerPrefs.GetString ("world" + actualWorld.ToString () + "d");
+		th.text = PlayerPrefs.GetString ("world" + actualWorld.ToString () + "th");
+		a.text = PlayerPrefs.GetString ("world" + actualWorld.ToString () + "a");
+		al.text = PlayerPrefs.GetString ("world" + actualWorld.ToString () + "al");
+		fatherWorld.value = PlayerPrefs.GetInt ("father" + actualWorld.ToString ());
+		variableSelector.value = PlayerPrefs.GetInt ("variable" + actualWorld.ToString ());
 	}
 
 	bool saveConfig() {
@@ -106,7 +112,7 @@ public class Manager : MonoBehaviour {
 		if (Regex.Match (d.text, "^[-+]?[0-9]+$").Success && Regex.Match (th.text, "^[-+]?[0-9]+$").Success &&
 		    Regex.Match (a.text, "^[-+]?[0-9]+$").Success &&  Regex.Match (al.text, "^[-+]?[0-9]+$").Success) 
 		{
-			PlayerPrefs.SetInt ("nWorlds", nWorlds);
+			PlayerPrefs.SetInt ("nWorlds", nWorlds+1);
 			PlayerPrefs.SetString ("world" + actualWorld.ToString () + "d", d.text);
 			PlayerPrefs.SetString ("world" + actualWorld.ToString () + "th", th.text);
 			PlayerPrefs.SetString ("world" + actualWorld.ToString () + "a", a.text);

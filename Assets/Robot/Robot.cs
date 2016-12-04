@@ -5,8 +5,8 @@ using System.Text.RegularExpressions;
 
 public class Robot : MonoBehaviour {
 
-	public int move_nJoint  = 0;
-	public float move_Value = 0.0f;
+	public InputField nJointInput;
+	public InputField ValueInput;
 	public int 		nWorlds_;
 	GameObject[] 	worlds_;
 	float[]			a,d,th,al;
@@ -37,15 +37,11 @@ public class Robot : MonoBehaviour {
 
 	}
 
-	public void SetJointMovement(string nJoint){
-		move_nJoint = int.Parse(nJoint);
-	}
-
-	public void SetValueMovement(string value){
-		move_Value = float.Parse(value);
-	}
 
 	public void MoveJoint(){
+		Debug.Log ("MoveJoint");
+		int move_nJoint = int.Parse(nJointInput.text);
+		float move_Value = float.Parse(ValueInput.text);
 
 		int number = 0;
 		while (!variableMatrix[move_nJoint, number])
@@ -98,7 +94,7 @@ public class Robot : MonoBehaviour {
 	}
 
 	void CreateLinks_Joints () {
-		for (int i = 1; i < nWorlds_; i++) {
+		for (int i = 0; i < nWorlds_; i++) {
 			// **************************** LINKS ********************************
 			if (d [i] > 0) { //Z
 				GameObject link = GameObject.CreatePrimitive (PrimitiveType.Cylinder);

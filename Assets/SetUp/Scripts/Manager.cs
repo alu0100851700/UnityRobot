@@ -43,8 +43,7 @@ public class Manager : MonoBehaviour {
 
 	public void changeScene (string scene) {
 		saveConfig ();
-		if(actualWorld > 0)
-			Application.LoadLevel (scene);
+		Application.LoadLevel (scene);
 	}
 
 	public void UpdateUI(bool next){
@@ -112,7 +111,7 @@ public class Manager : MonoBehaviour {
 		if (Regex.Match (d.text, "^[-+]?[0-9]+$").Success && Regex.Match (th.text, "^[-+]?[0-9]+$").Success &&
 		    Regex.Match (a.text, "^[-+]?[0-9]+$").Success &&  Regex.Match (al.text, "^[-+]?[0-9]+$").Success) 
 		{
-			PlayerPrefs.SetInt ("nWorlds", nWorlds+1);
+			PlayerPrefs.SetInt ("nWorlds", nWorlds);
 			PlayerPrefs.SetString ("world" + actualWorld.ToString () + "d", d.text);
 			PlayerPrefs.SetString ("world" + actualWorld.ToString () + "th", th.text);
 			PlayerPrefs.SetString ("world" + actualWorld.ToString () + "a", a.text);

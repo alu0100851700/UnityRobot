@@ -19,10 +19,13 @@ public class Robot : MonoBehaviour {
 	public GameObject LinealJoint;
 	public GameObject RobotBase;
 
+	public Material		WhiteMetal;
+	public Material		BlackMetal;
+
 
 	// Use this for initialization
 	void Start () {
-		nWorlds_ = PlayerPrefs.GetInt ("nWorlds");
+		nWorlds_ = PlayerPrefs.GetInt ("nWorlds") + 1;
 		variableMatrix = new bool[nWorlds_, 4];
 		Set_DHMatrix ();
 		CreateRobot ();
@@ -82,6 +85,7 @@ public class Robot : MonoBehaviour {
 			a [move_nJoint] = GetNumber (PlayerPrefs.GetString ("world" + move_nJoint.ToString () + "a")) +  move_Value;
 
 			Transform A = worlds_[move_nJoint].transform.Find("linkA" + move_nJoint);
+
 			A.localScale = new Vector3 (0.25f, (a [move_nJoint]) / 2, 0.25f);
 			A.localPosition = new Vector3 (-(a [move_nJoint]) / 2, 0.0f, 0.0f);
 
@@ -102,24 +106,25 @@ public class Robot : MonoBehaviour {
 	void CreateLinks_Joints () {
 		for (int i = 0; i < nWorlds_; i++) {
 			// **************************** LINKS ********************************
-			if (d [i] > 0) { //Z
-				GameObject link = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
-				link.name = "linkD" + i;
-				link.transform.localScale = new Vector3 (0.25f, (d [i])/2, 0.25f);
-				link.transform.parent = worlds_ [i].transform.parent;
-				link.transform.rotation = worlds_ [i].transform.parent.rotation * Quaternion.Euler(90.0f, 0.0f, 0.0f);
-				link.transform.localPosition = new Vector3 (0.0f, 0.0f, (d [i])/2);
-			}
-			if (a [i] > 0) {
-				GameObject link = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
-				link.name = "linkA" + i;
-				link.transform.localScale = new Vector3 (0.25f, (a[i])/2, 0.25f);
-				link.transform.parent = worlds_ [i].transform;
-				link.transform.localRotation =  Quaternion.Euler(90.0f, 0.0f, 90.0f);
+			//D
+			GameObject linkD = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
+			linkD.GetComponent<Renderer> ().sharedMaterial = WhiteMetal;
+			linkD.name = "linkD" + i;
+			linkD.transform.localScale = new Vector3 (0.25f, (d [i])/2, 0.25f);
+			linkD.transform.parent = worlds_ [i].transform.parent;
+			linkD.transform.rotation = worlds_ [i].transform.parent.rotation * Quaternion.Euler(90.0f, 0.0f, 0.0f);
+			linkD.transform.localPosition = new Vector3 (0.0f, 0.0f, (d [i])/2);
+			
+			//A
+			GameObject linkA = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
+			linkA.GetComponent<Renderer> ().sharedMaterial = WhiteMetal;
+			linkA.name = "linkA" + i;
+			linkA.transform.localScale = new Vector3 (0.25f, (a[i])/2, 0.25f);
+			linkA.transform.parent = worlds_ [i].transform;
+			linkA.transform.localRotation =  Quaternion.Euler(90.0f, 0.0f, 90.0f);
 
-				link.transform.localPosition = new Vector3 (- (a[i])/2, 0.0f, 0.0f);
-				//link.transform.parent = worlds_ [i-1].transform;
-			}
+			linkA.transform.localPosition = new Vector3 (- (a[i])/2, 0.0f, 0.0f);
+
 
 			// **************************** JOINTS ********************************
 			if (variableMatrix [i, 0]) {	//d
@@ -137,7 +142,7 @@ public class Robot : MonoBehaviour {
 			else if (variableMatrix [i, 2]) {	//a
 				GameObject j = (GameObject)Instantiate(LinealJoint);
 				j.transform.parent = worlds_ [i].transform.parent;
-				j.transform.localRotation = Quaternion.Euler (0f, 0f, 90f);
+				j.transform.localRotation = Quaternion.Euler (0f, 0f, -90f);
 				j.transform.localPosition = Vector3.zero;
 			}
 			else if (variableMatrix [i, 3]) {	//al
@@ -146,36 +151,6 @@ public class Robot : MonoBehaviour {
 				j.transform.localPosition = Vector3.zero;
 				j.transform.localRotation = Quaternion.Euler (0.0f, 0.0f, 90.0f);
 			}
-			/*
-			if (variableMatrix [i, 0]) {	//d
-				GameObject j = GameObject.CreatePrimitive (PrimitiveType.Cube);
-				j.transform.parent = worlds_ [i].transform.parent;
-				j.transform.localScale = new Vector3 (0.3f, 0.6f, 0.3f);
-				j.transform.localPosition = Vector3.zero;
-			}
-			if (variableMatrix [i, 1]) {	//th
-				GameObject j = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
-				j.transform.parent = worlds_ [i].transform;
-				j.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
-
-				j.transform.localRotation = Quaternion.Euler (90.0f, 0.0f, 0.0f);
-				j.transform.parent =  worlds_ [i].transform.parent;
-				j.transform.localPosition = Vector3.zero;
-			}
-			if (variableMatrix [i, 2]) {	//a
-				GameObject j = GameObject.CreatePrimitive (PrimitiveType.Cube);
-				j.transform.parent = worlds_ [i].transform.parent;
-				j.transform.localScale = new Vector3 (0.6f, 0.3f, 0.3f);
-				j.transform.localPosition = Vector3.zero;
-			}
-			if (variableMatrix [i, 3]) {	//al
-				GameObject j = GameObject.CreatePrimitive (PrimitiveType.Cylinder);
-				j.transform.parent = worlds_ [i].transform.parent;
-				j.transform.localScale = new Vector3 (0.3f, 0.3f, 0.3f);
-				j.transform.localPosition = Vector3.zero;
-				j.transform.localRotation = Quaternion.Euler (0.0f, 0.0f, 90.0f);
-			}
-*/
 
 
 		}
@@ -218,8 +193,6 @@ public class Robot : MonoBehaviour {
 			worlds_ [i].transform.localPosition += new Vector3 (0.0f, 0.0f, d[i]);
 
 		}
-		//baseAxis.transform.DetachChildren();
-		//Destroy (baseAxis);
 	}
 
 	Matrix4x4 GetT (int pos){

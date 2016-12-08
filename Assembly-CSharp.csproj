@@ -46,11 +46,11 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Prefab\Axis\RotateAxis.cs" />
-     <Compile Include="Assets\Robot\Camera.cs" />
-     <Compile Include="Assets\Robot\Robot.cs" />
-     <Compile Include="Assets\Scripts\DH\DHManager.cs" />
-     <Compile Include="Assets\Scripts\DH\DHRobotManager.cs" />
-     <Compile Include="Assets\Scripts\DH\ShowAxis.cs" />
+     <Compile Include="Assets\Prefab\Joint1\PrefabJoint1.cs" />
+     <Compile Include="Assets\Prefab\Joint2\PrefabJoint2.cs" />
+     <Compile Include="Assets\Prefab\RobotBase\RobotBase.cs" />
+     <Compile Include="Assets\Robot\Scripts\Camera.cs" />
+     <Compile Include="Assets\Robot\Scripts\Robot.cs" />
      <Compile Include="Assets\SetUp\Scripts\Manager.cs" />
  <Reference Include="UnityEngine.UI">
  <HintPath>D:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>

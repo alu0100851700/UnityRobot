@@ -109,8 +109,7 @@ public class Manager : MonoBehaviour {
 	bool saveConfig() {
 			
 		if (Regex.Match (d.text, "^[-+]?[0-9]+$").Success && Regex.Match (th.text, "^[-+]?[0-9]+$").Success &&
-		    Regex.Match (a.text, "^[-+]?[0-9]+$").Success &&  Regex.Match (al.text, "^[-+]?[0-9]+$").Success) 
-		{
+		    Regex.Match (a.text, "^[-+]?[0-9]+$").Success && Regex.Match (al.text, "^[-+]?[0-9]+$").Success) {
 			PlayerPrefs.SetInt ("nWorlds", nWorlds);
 			PlayerPrefs.SetString ("world" + actualWorld.ToString () + "d", d.text);
 			PlayerPrefs.SetString ("world" + actualWorld.ToString () + "th", th.text);
@@ -121,8 +120,10 @@ public class Manager : MonoBehaviour {
 			PlayerPrefs.SetInt ("variable" + actualWorld.ToString (), variableSelector.value);
 			return true;
 
-		} else
+		} else {
+			//nWorlds--;
 			return false;
+		}
 
 	}
 
